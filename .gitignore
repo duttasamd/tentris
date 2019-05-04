@@ -2,3 +2,4 @@ build/
 cmake-build-debug/
 .idea/
 tests/googletest
+**/.DS_Store
