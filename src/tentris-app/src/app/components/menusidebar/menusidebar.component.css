@@ -1,0 +1,9 @@
+.menupanel {
+  height: 100%;
+  margin:5%;
+}
+
+.menupanelcontent {
+  height: 39vh;
+  background: aqua;
+}
