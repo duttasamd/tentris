@@ -7,6 +7,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { MenusidebarComponent } from './components/menusidebar/menusidebar.component';
 import { EditorComponent } from './components/editor/editor.component';
 import { ViewerComponent } from './components/viewer/viewer.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTableModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { ViewerComponent } from './components/viewer/viewer.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
