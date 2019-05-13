@@ -1,14 +1,12 @@
-<div class="container viewercontainer">
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-    <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
-      <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
-      <!--    <td mat-cell *matCellDef="let element">{{ element[column].value }}</td>-->
-      <td mat-cell *matCellDef="let element">{{ element[column]?.value }}</td>
+  <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+    <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
+    <!--    <td mat-cell *matCellDef="let element">{{ element[column].value }}</td>-->
+    <td mat-cell *matCellDef="let element">{{ element[column]?.value }}</td>
 
-    </ng-container>
+  </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-</div>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
