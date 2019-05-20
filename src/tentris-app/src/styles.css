@@ -1,2 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.mat-elevation-z8 .mat-cell,.mat-elevation-z8 .mat-header-cell {
+    border: ridge 1px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+.mat-elevation-z8 a:link, .mat-elevation-z8 a:visited {
+    color:#428bca;
+}
