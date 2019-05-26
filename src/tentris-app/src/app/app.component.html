@@ -1,17 +1,15 @@
-<app-navbar></app-navbar>
-<div class="container appcontainer">
-  <div class="row">
-    <div class="col-2">
-      <app-menusidebar></app-menusidebar>
-    </div>
-    <div class="col-10">
-      <app-editor></app-editor>
-    </div>
+<div class="tentrisnav">
+  <app-navbar></app-navbar>
+</div>
+<div class="editor">
+  <div class="menu">
+    <app-menusidebar></app-menusidebar>
   </div>
-  <div class="row">
-    <div class="col">
-      <app-viewer></app-viewer>
-    </div>
+  <div class="query">
+    <app-editor></app-editor>
   </div>
+</div>
+<div class="viewer">
+  <app-viewer></app-viewer>
 </div>
 <router-outlet></router-outlet>
