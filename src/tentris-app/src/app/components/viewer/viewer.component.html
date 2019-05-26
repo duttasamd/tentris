@@ -1,32 +1,32 @@
-<div class="container viewercontainer">
-  <mat-tab-group animationDuration="500ms">
+<mat-tab-group animationDuration="500ms">
   <mat-tab label="Output">
-      
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-    <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
-      <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
-      <!--    <td mat-cell *matCellDef="let element">{{ element[column].value }}</td>-->
-      <!--<td mat-cell *matCellDef="let element">{{ element[column]?.value }}</td>-->
-    <td mat-cell *matCellDef="let element">
-      <span *ngIf="element[column].type=='uri'; else elseBlock"><a href="{{ element[column]?.value }}">{{ element[column]?.value }}</a></span>
-      <ng-template #elseBlock>{{ element[column]?.value }}</ng-template>
-    </td>
-    </ng-container>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-</mat-tab>
-<mat-tab label="JSON">
-  <pre>{{ beautified }}</pre>
-</mat-tab>
-<mat-tab label="Download">
+      <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+        <th mat-header-cell *matHeaderCellDef><h6><b>{{ column }}</b></h6></th>
+        <!--    <td mat-cell *matCellDef="let element">{{ element[column].value }}</td>-->
+        <!--<td mat-cell *matCellDef="let element">{{ element[column]?.value }}</td>-->
+        <td mat-cell *matCellDef="let element">
+          <span *ngIf="element[column].type=='uri'; else elseBlock"><a
+              href="{{ element[column]?.value }}">{{ element[column]?.value }}</a></span>
+          <ng-template #elseBlock>{{ element[column]?.value }}</ng-template>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20, 30, 50, 100, 500]" showFirstLastButtons></mat-paginator>
+  </mat-tab>
+  <mat-tab label="JSON">
+    <pre>{{ beautified }}</pre>
+  </mat-tab>
+  <mat-tab label="Download">
     <mat-list>
-        <mat-list-item><button mat-raised-button color="primary">JSON (unformatted)</button></mat-list-item>
-        <mat-list-item><button mat-raised-button color="primary">JSON (formatted)</button></mat-list-item>
-        <mat-list-item><button mat-raised-button color="primary">HTML</button></mat-list-item>
-    </mat-list>    
-</mat-tab>
+      <mat-list-item><button mat-raised-button color="primary">JSON (unformatted)</button></mat-list-item>
+      <mat-list-item><button mat-raised-button color="primary">JSON (formatted)</button></mat-list-item>
+      <mat-list-item><button mat-raised-button color="primary">HTML</button></mat-list-item>
+    </mat-list>
+  </mat-tab>
 </mat-tab-group>
-</div>
