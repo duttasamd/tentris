@@ -20,6 +20,7 @@ export class ViewerComponent implements OnInit {
   dataSource = new MatTableDataSource(ELEMENT_DATA); //<any>
   beautified = dummy_beautified;
   disableVal = false;
+  disableVal2 = true;
   mainFilterValue = "";
 
   constructor() { }
@@ -33,6 +34,7 @@ export class ViewerComponent implements OnInit {
 
   toggle() {
     this.disableVal = !this.disableVal;
+    this.disableVal2 = !this.disableVal2;
     this.clearFilter();
   }
 
@@ -59,5 +61,17 @@ export class ViewerComponent implements OnInit {
     const dataStr = temp;
     return dataStr.indexOf(filter) != -1; 
     }    
+  }
+  colFilter(filterValue: string, placeHolder: string) {
+    //console.log("Event");
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.dataSource.filterPredicate = (data, filter) => {
+    let temp = "";  //console.log(data[placeHolder]["value"]);
+      if(data[placeHolder]["value"] != undefined) { 
+        temp += data[placeHolder]["value"].trim().toLowerCase();
+      }
+    const dataStr = temp;
+    return dataStr.indexOf(filter) != -1; 
+    }
   }
 }
