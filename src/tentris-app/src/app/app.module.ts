@@ -8,7 +8,8 @@ import { MenusidebarComponent } from './components/menusidebar/menusidebar.compo
 import { EditorComponent } from './components/editor/editor.component';
 import { ViewerComponent } from './components/viewer/viewer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTableModule, MatTabsModule, MatButtonModule, MatListModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { MatTableModule, MatTabsModule, MatButtonModule, MatListModule, MatPaginatorModule, MatSortModule, MatInputModule, MatSlideToggleModule } from '@angular/material';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,10 @@ import { MatTableModule, MatTabsModule, MatButtonModule, MatListModule, MatPagin
     MatButtonModule,
     MatListModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatInputModule,
+    MatSlideToggleModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

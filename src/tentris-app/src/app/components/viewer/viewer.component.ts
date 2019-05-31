@@ -19,21 +19,45 @@ export class ViewerComponent implements OnInit {
   //dataSource = ELEMENT_DATA;
   dataSource = new MatTableDataSource(ELEMENT_DATA); //<any>
   beautified = dummy_beautified;
+  disableVal = false;
+  mainFilterValue = "";
 
   constructor() { }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  
+
   sortingDataAccessor(item, property) {
     return item[property].value;
   }
 
-ngOnInit() {
+  toggle() {
+    this.disableVal = !this.disableVal;
+    this.clearFilter();
+  }
+
+  ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sortingDataAccessor = this.sortingDataAccessor;
     this.dataSource.sort = this.sort;
   }
-
-
+  clearFilter() {
+    this.dataSource.filter = "";
+    if(this.mainFilterValue != "") {
+      this.mainFilterValue = "";
+    }
+  }
+  mainFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.dataSource.filterPredicate = (data, filter) => {
+    let temp = "";  //console.log(data);
+    Object.values(data).forEach(element => {// console.log(element);
+      if(element["value"] != undefined) { 
+        temp += element["value"].trim().toLowerCase();
+      }
+    });
+    const dataStr = temp;
+    return dataStr.indexOf(filter) != -1; 
+    }    
+  }
 }
