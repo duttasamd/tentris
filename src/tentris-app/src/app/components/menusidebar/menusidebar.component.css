@@ -1,9 +1,29 @@
+.panel {
+  margin: 0;
+}
 .menupanel {
   height: 100%;
-  margin:5%;
 }
 
 .menupanelcontent {
-  height: 39vh;
-  background: aqua;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  background: whitesmoke;
+}
+
+.row {
+  text-align: center;
+  align-content: center;
+  height: 20%;
+}
+
+.btn {
+  width: 100%;
+
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: RoyalBlue;
 }
