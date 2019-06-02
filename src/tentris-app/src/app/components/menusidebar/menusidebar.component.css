@@ -15,12 +15,14 @@
 .row {
   text-align: center;
   align-content: center;
+  vertical-align: middle;
   height: 20%;
 }
 
 .btn {
+  border-radius: 0;
+  height: 20%;
   width: 100%;
-
 }
 
 /* Darker background on mouse-over */
