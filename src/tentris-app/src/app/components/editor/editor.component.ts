@@ -2,8 +2,10 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import * as ace from 'ace-builds';
 
 // language package, choose your own
-import 'ace-builds/src-noconflict/mode-sparql';
+// import 'ace-builds/src-noconflict/mode-sparql';
 // ui-theme package
+import 'src/assets/mode_custom_sparql';
+
 import 'ace-builds/src-noconflict/theme-textmate';
 
 import 'ace-builds/src-noconflict/ext-language_tools';
