@@ -26,8 +26,6 @@ export class EditorComponent implements OnInit {
   static getEditorOptions(): Partial<ace.Ace.EditorOptions> & { enableBasicAutocompletion?: boolean; } {
     const basicEditorOptions: Partial<ace.Ace.EditorOptions> = {
       highlightActiveLine: true,
-      minLines: 14,
-      maxLines: 22,
       autoScrollEditorIntoView: true
     };
 
@@ -52,7 +50,7 @@ export class EditorComponent implements OnInit {
     ace.require('ace/ext/language_tools');
 
     const element = this.codeEditorElmRef.nativeElement;
-    const editorOptions = this.getEditorOptions();
+    const editorOptions = EditorComponent.getEditorOptions();
 
     // this.editorBeautify = ace.require('ace/ext/beautify');
     this.codeEditor = ace.edit(element, editorOptions);
@@ -85,22 +83,22 @@ export class EditorComponent implements OnInit {
       // console.log(level)
       if (token.startsWith('#')) {
         // console.log(token + 'starts with : ', token)
-        beautifiedCode += '\n' + this.addtabs(level, token);
+        beautifiedCode += '\n' + EditorComponent.addtabs(level, token);
       } else if (token === '{') {
-        beautifiedCode += '\n' + this.addtabs(level, token) + '\n';
+        beautifiedCode += '\n' + EditorComponent.addtabs(level, token) + '\n';
         tabneeded = true;
         level += 1;
       } else if (token === '}') {
         tabneeded = true;
         level -= 1;
-        beautifiedCode += '\n' + this.addtabs(level, token);
+        beautifiedCode += '\n' + EditorComponent.addtabs(level, token);
       } else if (keywords.indexOf(token.toLowerCase()) >= 0) {
         console.log(token);
-        beautifiedCode += '\n' + this.addtabs(level, token);
+        beautifiedCode += '\n' + EditorComponent.addtabs(level, token);
         tabneeded = false;
       } else {
         if (tabneeded) {
-          beautifiedCode += this.addtabs(level, token);
+          beautifiedCode += EditorComponent.addtabs(level, token);
           tabneeded = false;
         } else {
           beautifiedCode += ' ' + token;
