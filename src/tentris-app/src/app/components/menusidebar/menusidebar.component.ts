@@ -23,7 +23,12 @@ export class MenusidebarComponent implements OnInit {
   }
 
   run() {
-    console.log("execute");
+    this.editorSevice.onRunQuery();
+    console.log('execute');
+  }
+
+  getHistory() {
+    this.editorSevice.onHistoryClick();
   }
 
 }
