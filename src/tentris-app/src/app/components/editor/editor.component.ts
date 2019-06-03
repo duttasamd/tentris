@@ -67,22 +67,46 @@ export class EditorComponent implements OnInit {
     this.codeEditor.setShowFoldWidgets(true);
 
     if (this.editorService.subsVar === undefined) {
-      this.editorService.subsVar = this.editorService.invokeEditorBeautify.subscribe((name: string) => {
+      this.editorService.subsVar = this.editorService.invokeEditorBeautify.subscribe(() => {
         this.beautifySparql();
       });
-      this.editorService.subsVar = this.editorService.invokeClearCode.subscribe((name: string) => {
+      this.editorService.subsVar = this.editorService.invokeClearCode.subscribe(() => {
         this.clearCode();
+      });
+      this.editorService.subsVar = this.editorService.invokeRunQuery.subscribe(() => {
+        this.runQuery();
+      });
+      this.editorService.subsVar = this.editorService.invokeHistory.subscribe(() => {
+        this.historyClick();
       });
     }
   }
 
-  // firstComponentFunction(){
-  //   this.eventEmitterService.onFirstComponentButtonClick();
-  // }
+  private historyClick() {
+    console.log('in history');
+    const history = this.editorService.getData('history');
 
-  private getCode(code) {
-    // const code = this.codeEditor.getValue();
-    console.log(code);
+    if (history !== undefined && history.length > 0) {
+      console.log(history.length);
+      this.codeEditor.setValue(history[history.length - 1]);
+      history.splice(-1, 1);
+    } else if (history.length === 0) {
+      this.codeEditor.setValue('');
+    }
+  }
+
+  private runQuery() {
+    console.log('in run query');
+    const code = this.codeEditor.getValue();
+    const history = this.editorService.getData('history');
+    console.log(history);
+    if (history === undefined) {
+      this.editorService.setData('history', [code]);
+    } else {
+      console.log('push');
+      history.push(code);
+      // this.editorService.setData('history', history);
+    }
   }
 
   public beautifySparql() {

@@ -7,7 +7,20 @@ import {Subscription} from 'rxjs/internal/Subscription';
 export class EditorService {
   invokeEditorBeautify = new EventEmitter();
   invokeClearCode = new EventEmitter();
+  invokeRunQuery = new EventEmitter();
+  invokeHistory = new EventEmitter();
+
   subsVar: Subscription;
+
+  data: any = {};
+
+  setData(key, value) {
+    this.data[key] = value;
+  }
+
+  getData(key) {
+    return this.data[key];
+  }
 
   constructor() {
   }
@@ -18,5 +31,13 @@ export class EditorService {
 
   onClearCode() {
     this.invokeClearCode.emit();
+  }
+
+  onRunQuery() {
+    this.invokeRunQuery.emit();
+  }
+
+  onHistoryClick() {
+    this.invokeHistory.emit();
   }
 }
