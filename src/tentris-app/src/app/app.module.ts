@@ -9,6 +9,7 @@ import { EditorComponent } from './components/editor/editor.component';
 import { ViewerComponent } from './components/viewer/viewer.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatTableModule} from '@angular/material';
+import {EditorService} from './editor.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import {MatTableModule} from '@angular/material';
     BrowserAnimationsModule,
     MatTableModule
   ],
-  providers: [],
+  providers: [EditorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

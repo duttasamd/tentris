@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import * as ace from 'ace-builds';
+import {EditorService} from '../../editor.service';
 
 // language package, choose your own
 // import 'ace-builds/src-noconflict/mode-sparql';
@@ -35,6 +36,7 @@ export class EditorComponent implements OnInit {
       enableBasicAutocompletion: true
     };
 
+
     return Object.assign(basicEditorOptions, extraEditorOptions);
   }
 
@@ -46,7 +48,9 @@ export class EditorComponent implements OnInit {
     return tabbedstr + str;
   }
 
-  constructor() { }
+  constructor(private editorService: EditorService) {
+  }
+
 
   ngOnInit() {
     ace.require('ace/ext/language_tools');
@@ -61,15 +65,33 @@ export class EditorComponent implements OnInit {
     this.codeEditor.setBehavioursEnabled(true);
     this.codeEditor.setWrapBehavioursEnabled(true);
     this.codeEditor.setShowFoldWidgets(true);
+
+    if (this.editorService.subsVar === undefined) {
+      this.editorService.subsVar = this.editorService.invokeEditorBeautify.subscribe((name: string) => {
+        this.beautifySparql();
+      });
+      this.editorService.subsVar = this.editorService.invokeClearCode.subscribe((name: string) => {
+        this.clearCode();
+      });
+    }
   }
 
-  private getCode() {
-    const code = this.codeEditor.getValue();
+  // firstComponentFunction(){
+  //   this.eventEmitterService.onFirstComponentButtonClick();
+  // }
+
+  private getCode(code) {
+    // const code = this.codeEditor.getValue();
     console.log(code);
   }
 
-  private beautifySparql() {
-    const code = this.codeEditor.getValue();
+  public beautifySparql() {
+    console.log('in beutify');
+    let code = this.codeEditor.getValue();
+    code = code.replace(/(?:\r\n|\r|\n)/g, ' <br> ');
+    code = code.replace(/{/g, ' { ');
+    code = code.replace(/}/g, ' } ');
+    console.log(code);
     const keywords = ['base', 'prefix', 'select', 'distinct', 'reduced', 'construct', 'describe', 'ask',
       'from', 'named', 'where', 'order', 'limit', 'offset', 'filter', 'optional', 'graph', 'asc',
       'desc', 'having', 'undef', 'values', 'group', 'minus', 'in', 'not', 'service', 'silent',
@@ -79,15 +101,29 @@ export class EditorComponent implements OnInit {
     console.log(tokens);
     let level = 0;
     let tabneeded = false;
-
+    let ignorebr = true;
     let beautifiedCode = '';
     for (const token of tokens) {
-      // console.log(level)
+
+      if (!ignorebr) {
+        if (token === '<br>') {
+          ignorebr = true;
+          continue;
+        } else {
+          beautifiedCode += ' ' + token;
+          continue;
+        }
+      } else {
+        if (token === '<br>') {
+          continue;
+        }
+      }
+
       if (token.startsWith('#')) {
-        // console.log(token + 'starts with : ', token)
+        ignorebr = false;
         beautifiedCode += '\n' + EditorComponent.addtabs(level, token);
       } else if (token === '{') {
-        beautifiedCode += '\n' + EditorComponent.addtabs(level, token) + '\n';
+        beautifiedCode += '\n' + EditorComponent.addtabs(level, token);
         tabneeded = true;
         level += 1;
       } else if (token === '}') {
@@ -100,7 +136,7 @@ export class EditorComponent implements OnInit {
         tabneeded = false;
       } else {
         if (tabneeded) {
-          beautifiedCode += EditorComponent.addtabs(level, token);
+          beautifiedCode += '\n' + EditorComponent.addtabs(level, token);
           tabneeded = false;
         } else {
           beautifiedCode += ' ' + token;
@@ -112,6 +148,10 @@ export class EditorComponent implements OnInit {
       console.log('starts with new line');
     }
     this.codeEditor.setValue(beautifiedCode);
+  }
+
+  private clearCode() {
+    this.codeEditor.setValue('');
   }
 
 }

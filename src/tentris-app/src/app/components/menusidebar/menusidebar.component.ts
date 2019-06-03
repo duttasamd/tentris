@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {EditorService} from '../../editor.service';
 
 @Component({
   selector: 'app-menusidebar',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenusidebarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private editorSevice: EditorService) {
+  }
 
   ngOnInit() {
+  }
+
+  beautify() {
+    this.editorSevice.onBeautifyClick();
+  }
+
+  clearCode() {
+    this.editorSevice.onClearCode();
+  }
+
+  run() {
+    console.log("execute");
   }
 
 }
