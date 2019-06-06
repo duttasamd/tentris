@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
+import { ViewerService } from '../../viewer.service';
 
 let columnList = ["article", "property", "value"]; // Dummy data [ This data comes from "head":{"vars": ____} of the http response
 // THe below data comes from "results":{"bindings":[ _______]} part of the http response
@@ -26,7 +27,7 @@ export class ViewerComponent implements OnInit {
   disableVal2 = true;
   mainFilterValue = "";
 
-  constructor() { }
+  constructor( private data: ViewerService ) {}
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
