@@ -7,4 +7,8 @@ import { HttpClient } from '@angular/common/http';
 export class ViewerService {
 
   constructor(private http: HttpClient) { }
+
+  getJSON(){
+    return this.http.get('https://api.myjson.com/bins/7eoxf'); //temporary json placeholder
+  }
 }
