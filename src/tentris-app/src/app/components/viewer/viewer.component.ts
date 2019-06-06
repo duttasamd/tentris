@@ -48,8 +48,10 @@ export class ViewerComponent implements OnInit {
     this.dataSource.sort = this.sort;
 
     var JSONdata: DataResponse;
-   
-    //});
+    this.data.getJSON().subscribe(data =>{
+      JSONdata=<DataResponse>data; //JSON data stored as defined by the interface
+      
+    });
   }
   clearFilter() {
     this.dataSource.filter = "";
