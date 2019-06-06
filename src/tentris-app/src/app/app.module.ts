@@ -11,6 +11,8 @@ import {EditorService} from './editor.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule, MatTabsModule, MatButtonModule, MatListModule, MatPaginatorModule, MatSortModule, MatInputModule, MatProgressSpinnerModule, MatSlideToggleModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { FormsModule } from '@angular/forms';
     MatInputModule,
     MatProgressSpinnerModule,
     MatSlideToggleModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [EditorService],
   bootstrap: [AppComponent]

@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
+import { ViewerService } from '../../viewer.service';
 
 let columnList = ["article", "property", "value"]; // Dummy data [ This data comes from "head":{"vars": ____} of the http response
 // THe below data comes from "results":{"bindings":[ _______]} part of the http response
@@ -7,7 +8,10 @@ const ELEMENT_DATA = [{ "article": { "type": "uri", "value": "http:\/\/localhost
 const dummy_beautified = "{\n\t\"head\":{\n\t\t\"vars\":[\n\t\t\t\"article\",\n\t\t\t\"property\",\n\t\t\t\"value\"\n\t]\n},\n\t\"results\":{\n\t\t\"bindings\":[\n{\n\t\t\t\"article\":{\n\t\t\t\t\"type\":\"uri\",\n\t\t\t\t\"value\":\"http:\/\/localhost\/publications\/articles\/Journal1\/1940\/Article14\"\n\t\t\t},\n\t\t\t\"property\":{\n\t\t\t\t\"type\":\"uri\",\n\t\t\t\t\"value\":\"http:\/\/swrc.ontoware.org\/ontology#pages\"\n\t\t\t},\n\t\t\t\"value\":{\n\t\t\t\t\"type\":\"literal\",\n\t\t\t\t\"value\":\"138\",\n\t\t\t\t\"datatype\":\"http://www.w3.org/2001/XMLSchema#integer\"\n}\n}\n\t]\n}\n}";
 // To test sorting easily
 //const ELEMENT_DATA = [{"article":{"type":"uri","value":"A1"}, "property": {"type":"uri","value":"AA1"}, "value": {"type":"literal","value":"AAA1"}}, {"article":{"type":"uri","value":"B1"}, "property": {"type":"uri","value":"BB1"}, "value": {"type":"literal","value":"BBB1"}},{"article":{"type":"uri","value":"C1"}, "property": {"type":"uri","value":"CC1"}, "value": {"type":"literal","value":"CCC1"}},{"article":{"type":"uri","value":"D1"}, "property": {"type":"uri","value":"DD1"}, "value": {"type":"literal","value":"DDD1"}},{"article":{"type":"uri","value":"E1"}, "property": {"type":"uri","value":"EE1"}, "value": {"type":"literal","value":"EEE1"}}];
-
+interface DataResponse {
+  head: String;
+  results: String;
+}
 @Component({
   selector: 'app-viewer',
   templateUrl: './viewer.component.html',
@@ -23,7 +27,7 @@ export class ViewerComponent implements OnInit {
   disableVal2 = true;
   mainFilterValue = "";
 
-  constructor() { }
+  constructor( private data: ViewerService ) {}
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -42,6 +46,13 @@ export class ViewerComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sortingDataAccessor = this.sortingDataAccessor;
     this.dataSource.sort = this.sort;
+
+    var JSONdata: DataResponse;
+    this.data.getJSON().subscribe(data =>{
+      JSONdata=<DataResponse>data; //JSON data stored as defined by the interface
+      console.log(JSONdata.head); //JSON header can be accessed like this and can be seen in console
+      console.log(JSONdata.results); //JSON result can be accessed like this and can be seen in console
+    });
   }
   clearFilter() {
     this.dataSource.filter = "";
