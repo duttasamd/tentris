@@ -46,6 +46,10 @@ export class ViewerComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sortingDataAccessor = this.sortingDataAccessor;
     this.dataSource.sort = this.sort;
+
+    var JSONdata: DataResponse;
+   
+    //});
   }
   clearFilter() {
     this.dataSource.filter = "";
