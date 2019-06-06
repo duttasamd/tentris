@@ -50,7 +50,8 @@ export class ViewerComponent implements OnInit {
     var JSONdata: DataResponse;
     this.data.getJSON().subscribe(data =>{
       JSONdata=<DataResponse>data; //JSON data stored as defined by the interface
-      
+      console.log(JSONdata.head); //JSON header can be accessed like this and can be seen in console
+      console.log(JSONdata.results); //JSON result can be accessed like this and can be seen in console
     });
   }
   clearFilter() {
