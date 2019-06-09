@@ -9,3 +9,7 @@ table {
 th.mat-sort-header-sorted {
   color: black;
 }
+table mat-form-field {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
