@@ -1,4 +1,4 @@
-<mat-tab-group animationDuration="500ms">
+<mat-tab-group animationDuration="500ms" (selectedIndexChange)="onJsonRequest($event)">
     <mat-tab label="Output">
       <table style="border: ridge 1px;">
         <tr>
@@ -43,7 +43,7 @@
   
     </mat-tab>
     <mat-tab label="JSON">
-      <pre>{{ beautified }}</pre>
+      <pre>{{ beautified | json }}</pre>
     </mat-tab>
     <mat-tab label="Download">
       <mat-list>

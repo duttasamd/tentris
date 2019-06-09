@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatSort, MatPaginator, MatTableDataSource, MatTabChangeEvent } from '@angular/material';
 import { ViewerService } from '../../viewer.service';
 
 let columnList = ["article", "property", "value"]; // Dummy data [ This data comes from "head":{"vars": ____} of the http response
@@ -22,7 +22,7 @@ export class ViewerComponent implements OnInit {
   displayedColumns: string[] = columnList;
   //dataSource = ELEMENT_DATA;
   dataSource = new MatTableDataSource(ELEMENT_DATA); //<any>
-  beautified = dummy_beautified;
+  beautified = [];
   disableVal = false;
   disableVal2 = true;
   mainFilterValue = "";
@@ -83,6 +83,11 @@ export class ViewerComponent implements OnInit {
       }
     const dataStr = temp;
     return dataStr.indexOf(filter) != -1; 
+    }
+  }
+  onJsonRequest(indx: MatTabChangeEvent) {
+    if (indx.toString() == "1") {
+      this.beautified = ELEMENT_DATA;
     }
   }
 }
