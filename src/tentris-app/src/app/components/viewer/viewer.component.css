@@ -13,3 +13,13 @@ table mat-form-field {
   margin-top: 0px;
   margin-bottom: 0px;
 }
+.badge {
+    background: darkgrey;
+    border-radius: 30px;
+    color: white;
+    font-size: 12px;
+    margin-right: 4px;
+    min-width: 20px;
+    padding: 2px;
+    text-align: center;
+}
