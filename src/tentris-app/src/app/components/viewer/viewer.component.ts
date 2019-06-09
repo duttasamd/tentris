@@ -26,6 +26,7 @@ export class ViewerComponent implements OnInit {
   disableVal = false;
   disableVal2 = true;
   mainFilterValue = "";
+  pgSizeOptions = [5, 10, 20, 30, 50, 100, 500];
 
   constructor( private data: ViewerService ) {}
 
@@ -43,6 +44,9 @@ export class ViewerComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (ELEMENT_DATA.length > 500) {
+      this.pgSizeOptions.push(ELEMENT_DATA.length);
+    }
     this.dataSource.paginator = this.paginator;
     this.dataSource.sortingDataAccessor = this.sortingDataAccessor;
     this.dataSource.sort = this.sort;
@@ -56,33 +60,33 @@ export class ViewerComponent implements OnInit {
   }
   clearFilter() {
     this.dataSource.filter = "";
-    if(this.mainFilterValue != "") {
+    if (this.mainFilterValue != "") {
       this.mainFilterValue = "";
     }
   }
   mainFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.dataSource.filterPredicate = (data, filter) => {
-    let temp = "";  //console.log(data);
-    Object.values(data).forEach(element => {// console.log(element);
-      if(element["value"] != undefined) { 
-        temp += element["value"].trim().toLowerCase();
-      }
-    });
-    const dataStr = temp;
-    return dataStr.indexOf(filter) != -1; 
-    }    
+      let temp = "";  //console.log(data);
+      Object.values(data).forEach(element => {// console.log(element);
+        if (element["value"] != undefined) {
+          temp += element["value"].trim().toLowerCase();
+        }
+      });
+      const dataStr = temp;
+      return dataStr.indexOf(filter) != -1;
+    }
   }
   colFilter(filterValue: string, placeHolder: string) {
     //console.log("Event");
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.dataSource.filterPredicate = (data, filter) => {
-    let temp = "";  //console.log(data[placeHolder]["value"]);
-      if(data[placeHolder]["value"] != undefined) { 
+      let temp = "";  //console.log(data[placeHolder]["value"]);
+      if (data[placeHolder]["value"] != undefined) {
         temp += data[placeHolder]["value"].trim().toLowerCase();
       }
-    const dataStr = temp;
-    return dataStr.indexOf(filter) != -1; 
+      const dataStr = temp;
+      return dataStr.indexOf(filter) != -1;
     }
   }
   onJsonRequest(indx: MatTabChangeEvent) {
