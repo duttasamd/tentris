@@ -18,6 +18,8 @@
             style="margin-left: 25px; font-size: 14px; background-color: rgb(240, 240, 240); color: grey;">Download</button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item (click)="csv()">CSV</button>
+            <button mat-menu-item (click)="json(1)">JSON (formatted)</button>
+            <button mat-menu-item (click)="json(0)">JSON (unformatted)</button>
           </mat-menu>
         </td>
         <td>

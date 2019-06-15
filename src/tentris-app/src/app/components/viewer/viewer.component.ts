@@ -83,6 +83,26 @@ export class ViewerComponent implements OnInit {
     a.click();
     document.body.removeChild(a);
   }
+  json(formattedFlag: number) {
+    let data, partFileName;
+    if (formattedFlag == 1) {
+      data = JSON.stringify(ELEMENT_DATA, null, 2);
+      partFileName = "FormattedJSON_";
+    }
+    else {
+      data = JSON.stringify(ELEMENT_DATA);
+      partFileName = "UnformattedJSON_";
+    }
+    let blob = new Blob([data], { type: 'text/json' });
+    let url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.setAttribute('hidden', '');
+    a.setAttribute('href', url);
+    a.setAttribute('download', partFileName + new Date().toISOString().replace(/[:.TZ-]/g, "") + '.json');
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
   clearFilter() {
     this.dataSource.filter = "";
     if (this.mainFilterValue != "") {
