@@ -61,6 +61,28 @@ export class ViewerComponent implements OnInit {
       console.log(JSONdata.results); //JSON result can be accessed like this and can be seen in console
     });
   }
+  csv() {
+    let content = []; let headers = [];
+    for (const header of columnList) {
+      headers.push('"' + header + '"');
+    }
+    content.push(headers.join(','));
+    for (const row of ELEMENT_DATA) {
+      const values = columnList.map(header => {
+        return '"' + row[header].value + '"';
+      })
+      content.push(values.join(','));
+    }
+    let blob = new Blob([content.join('\n')], { type: 'text/csv' });
+    let url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.setAttribute('hidden', '');
+    a.setAttribute('href', url);
+    a.setAttribute('download', 'CSV_' + new Date().toISOString().replace(/[:.TZ-]/g, "") + '.csv');
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
   clearFilter() {
     this.dataSource.filter = "";
     if (this.mainFilterValue != "") {

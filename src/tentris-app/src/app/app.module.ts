@@ -9,7 +9,7 @@ import { EditorComponent } from './components/editor/editor.component';
 import { ViewerComponent } from './components/viewer/viewer.component';
 import {EditorService} from './editor.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTableModule, MatTabsModule, MatButtonModule, MatListModule, MatPaginatorModule, MatSortModule, MatInputModule, MatProgressSpinnerModule, MatSlideToggleModule, MatCheckboxModule, MatTooltipModule } from '@angular/material';
+import { MatTableModule, MatTabsModule, MatButtonModule, MatListModule, MatPaginatorModule, MatSortModule, MatInputModule, MatProgressSpinnerModule, MatSlideToggleModule, MatCheckboxModule, MatTooltipModule, MatMenuModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -38,7 +38,8 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule,
     MatCheckboxModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatMenuModule
   ],
   providers: [EditorService],
   bootstrap: [AppComponent]

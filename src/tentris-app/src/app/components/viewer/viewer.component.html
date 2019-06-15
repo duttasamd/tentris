@@ -14,6 +14,11 @@
             matTooltip="U - URI&nbsp;&nbsp;|&nbsp;&nbsp;L - Literal&nbsp;&nbsp;|&nbsp;&nbsp;B - Bnode"
             style="margin-left: 30px; font-size: 14px; color: grey;" (click)="toggleBadge()">Show data 'types'
           </mat-checkbox>
+          <button mat-button [matMenuTriggerFor]="menu"
+            style="margin-left: 25px; font-size: 14px; background-color: rgb(240, 240, 240); color: grey;">Download</button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="csv()">CSV</button>
+          </mat-menu>
         </td>
         <td>
           <mat-spinner [diameter]="30"></mat-spinner>
@@ -59,12 +64,5 @@
   </mat-tab>
   <mat-tab label="JSON">
     <pre>{{ beautified | json }}</pre>
-  </mat-tab>
-  <mat-tab label="Download">
-    <mat-list>
-      <mat-list-item><button mat-raised-button color="primary">JSON (unformatted)</button></mat-list-item>
-      <mat-list-item><button mat-raised-button color="primary">JSON (formatted)</button></mat-list-item>
-      <mat-list-item><button mat-raised-button color="primary">HTML</button></mat-list-item>
-    </mat-list>
   </mat-tab>
 </mat-tab-group>
