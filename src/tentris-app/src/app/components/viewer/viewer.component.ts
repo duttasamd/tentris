@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatPaginator, MatTableDataSource, MatTabChangeEvent } from '@angular/material';
 import { ViewerService } from '../../viewer.service';
+import { isNullOrUndefined } from 'util';
 
 let columnList = ["article", "property", "value"]; // Dummy data [ This data comes from "head":{"vars": ____} of the http response
 // THe below data comes from "results":{"bindings":[ _______]} part of the http response
@@ -99,6 +100,32 @@ export class ViewerComponent implements OnInit {
     a.setAttribute('hidden', '');
     a.setAttribute('href', url);
     a.setAttribute('download', partFileName + new Date().toISOString().replace(/[:.TZ-]/g, "") + '.json');
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+  html() {
+    let ht = "", td = "", tr = "";
+    let template = "<html><style type=\"text/css\">.tg  {border-collapse:collapse;border-spacing:0;text-align:left;vertical-align:top}.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black; background-color:aliceblue;}</style><body><table class=\"tg\"><tr>";
+    let dataValues = Object.values(ELEMENT_DATA);
+    for (let th = 0; th < columnList.length; th++) {
+      ht = ht + ("<th>" + columnList[th] + "</th>");
+    }
+    for (let i = 0; i < dataValues.length; i++) {
+      td = "";
+      for (let j = 0; j < columnList.length; j++) {
+        td = td + ("<td>" + (isNullOrUndefined(dataValues[i][columnList[j]]) ? "" : dataValues[i][columnList[j]].value) + "</td>");
+      }
+      tr = tr + ("<tr>" + td + "</tr>");
+    }
+    let htmlText = template +
+      ht + "</tr>" + tr + "</table></body></html>";
+    let blob = new Blob([htmlText], { type: 'text/html' });
+    let url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.setAttribute('hidden', '');
+    a.setAttribute('href', url);
+    a.setAttribute('download', 'HtmlTable_' + new Date().toISOString().replace(/[:.TZ-]/g, "") + '.html');
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
