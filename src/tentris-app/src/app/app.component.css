@@ -1,5 +1,5 @@
 .viewer {
-  top: 60%;
+  top: 55%;
   width: 100%;
   height: 40%;
   position: absolute;
@@ -7,14 +7,14 @@
 
 .menu {
   position: absolute;
-  top: 5%;
+  /*top: 5%;*/
   width: 10%;
   height: 55%;
 }
 
 .query {
   position: absolute;
-  top: 5%;
+  /*top: 5%;*/
   width: 90%;
   left: 10%;
   height: 55%;
