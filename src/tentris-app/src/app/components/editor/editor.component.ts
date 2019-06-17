@@ -100,6 +100,9 @@ export class EditorComponent implements OnInit {
 
   private runQuery() {
     console.log('in run query');
+
+    this.replacePrefix();
+
     const code = this.codeEditor.getValue();
     const history = this.editorService.getData('history');
     console.log(history);
@@ -191,6 +194,64 @@ export class EditorComponent implements OnInit {
     } else if (history.length === 0) {
       this.codeEditor.setValue('');
     }
+  }
+
+  public replacePrefix() {
+    let code = this.codeEditor.getValue();
+
+    if (code.includes('wd:') && !code.includes('PREFIX wd: <http://www.wikidata.org/entity/>')) {
+      code = 'PREFIX wd: <http://www.wikidata.org/entity/>\n' + code;
+    }
+
+    if (code.includes('wds:') && !code.includes('PREFIX wds: <http://www.wikidata.org/entity/statement/>')) {
+      code = 'PREFIX wds: <http://www.wikidata.org/entity/statement/>\n' + code;
+    }
+
+    if (code.includes('wdv:') && !code.includes('PREFIX wdv: <http://www.wikidata.org/value/>')) {
+      code = 'PREFIX wdv: <http://www.wikidata.org/value/>\n' + code;
+    }
+
+    if (code.includes('wdt:') && !code.includes('PREFIX wdt: <http://www.wikidata.org/prop/direct/>')) {
+      code = 'PREFIX wdt: <http://www.wikidata.org/prop/direct/>\n' + code;
+    }
+
+    if (code.includes('wikibase:') && !code.includes('PREFIX wikibase: <http://wikiba.se/ontology#>')) {
+      code = 'PREFIX wikibase: <http://wikiba.se/ontology#>\n' + code;
+    }
+
+    if (code.includes('p:') && !code.includes('PREFIX p: <http://www.wikidata.org/prop/>')) {
+      code = 'PREFIX p: <http://www.wikidata.org/prop/>\n' + code;
+    }
+
+    if (code.includes('ps:') && !code.includes('PREFIX ps: <http://www.wikidata.org/prop/statement/>')) {
+      code = 'PREFIX ps: <http://www.wikidata.org/prop/statement/>\n' + code;
+    }
+
+    if (code.includes('pq:') && !code.includes('PREFIX pq: <http://www.wikidata.org/prop/qualifier/>')) {
+      code = 'PREFIX pq: <http://www.wikidata.org/prop/qualifier/>\n' + code;
+    }
+
+    if (code.includes('rdfs:') && !code.includes('PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>')) {
+      code = 'PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n' + code;
+    }
+
+    if (code.includes('bd:') && !code.includes('PREFIX bd: <http://www.bigdata.com/rdf#>')) {
+      code = 'PREFIX bd: <http://www.bigdata.com/rdf#>\n' + code;
+    }
+
+    if (code.includes('schema:') && !code.includes('PREFIX schema: <http://schema.org/>')) {
+      code = 'PREFIX schema: <http://schema.org/>\n' + code;
+    }
+
+    if (code.includes('rdf:') && !code.includes('PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>')) {
+      code = 'PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n' + code;
+    }
+
+    if (code.includes('xsd:') && !code.includes('PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>')) {
+      code = 'PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n' + code;
+    }
+
+    this.codeEditor.setValue(code);
   }
 
 }

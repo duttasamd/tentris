@@ -7,7 +7,7 @@ ace.define("ace/mode/sparql_highlight_rules",["require","exports","module","ace/
   var SPARQLHighlightRules = function() {
 
     var keywords = (
-      "base|prefix|select|distinct|reduced|construct|describe|ask|from|named|where|order|limit|offset|filter|optional|graph|by|asc|desc|as|having|undef|values|group|minus|in|not|service|silent|using|insert|delete|union|true|false|with|data|copy|to|move|add|create|drop|clear|load"
+      "wd|wds|wdv|wdt|wikibase|p|ps|pq|rdfs|bd|PREFIX|wdref|psv|psn|pqv|pqn|pr|prv|prn|wdno|wdata|schema|rdf|owl|skos|xsd|prov|bds|gas|hint|base|prefix|select|distinct|reduced|construct|describe|ask|from|named|where|order|limit|offset|filter|optional|graph|by|asc|desc|as|having|undef|values|group|minus|in|not|service|silent|using|insert|delete|union|true|false|with|data|copy|to|move|add|create|drop|clear|load"
     );
 
     var builtinConstants = (

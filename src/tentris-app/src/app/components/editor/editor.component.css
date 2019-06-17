@@ -3,3 +3,10 @@ div {
   width: 100%;
   height: 100%;
 }
+
+.prefixBtn {
+  position: absolute;
+  top: 95%;
+  left: 85%;
+  z-index: 10;
+}
