@@ -34,7 +34,7 @@ export class MenusidebarComponent implements OnInit {
   }
 
   openHistoryModal() {
-    this.modalService.open(HistoryModalComponent, {windowClass: 'historyModal'});
+    this.modalService.open(HistoryModalComponent, {windowClass: 'historyModal', size: 'lg'});
     // modalRef.componentInstance.user = this.user;
   }
 
