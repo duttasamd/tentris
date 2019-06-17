@@ -9,6 +9,7 @@ export class EditorService {
   invokeClearCode = new EventEmitter();
   invokeRunQuery = new EventEmitter();
   invokeHistory = new EventEmitter();
+  invokeHistoryPick = new EventEmitter();
 
   subsVar: Subscription;
 
@@ -39,5 +40,9 @@ export class EditorService {
 
   onHistoryClick() {
     this.invokeHistory.emit();
+  }
+
+  onHistoryPick() {
+    this.invokeHistoryPick.emit();
   }
 }

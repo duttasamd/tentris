@@ -79,6 +79,9 @@ export class EditorComponent implements OnInit {
       this.editorService.subsVar = this.editorService.invokeHistory.subscribe(() => {
         this.historyClick();
       });
+      this.editorService.subsVar = this.editorService.invokeHistoryPick.subscribe(() => {
+        this.historyPick();
+      });
     }
   }
 
@@ -176,6 +179,18 @@ export class EditorComponent implements OnInit {
 
   private clearCode() {
     this.codeEditor.setValue('');
+  }
+
+  public historyPick() {
+    const index = this.editorService.getData('selectedindex');
+    const history = this.editorService.getData('history');
+    console.log('Picked index : ' + index);
+
+    if (history !== undefined && history.length > 0) {
+      this.codeEditor.setValue(history[index]);
+    } else if (history.length === 0) {
+      this.codeEditor.setValue('');
+    }
   }
 
 }
