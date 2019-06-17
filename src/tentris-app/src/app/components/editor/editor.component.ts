@@ -251,6 +251,53 @@ export class EditorComponent implements OnInit {
       code = 'PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\n' + code;
     }
 
+    if (code.includes('owl:') && !code.includes('PREFIX owl: <http://www.w3.org/2002/07/owl#>')) {
+      code = 'PREFIX owl: <http://www.w3.org/2002/07/owl#>\n' + code;
+    }
+    if (code.includes('skos:') && !code.includes('PREFIX skos: <http://www.w3.org/2004/02/skos/core#>')) {
+      code = 'PREFIX skos: <http://www.w3.org/2004/02/skos/core#>\n' + code;
+    }
+    if (code.includes('prov:') && !code.includes('PREFIX prov: <http://www.w3.org/ns/prov#>')) {
+      code = 'PREFIX prov: <http://www.w3.org/ns/prov#>\n' + code;
+    }
+    if (code.includes('bds:') && !code.includes('PREFIX bds: <http://www.bigdata.com/rdf/search#>')) {
+      code = 'PREFIX bds: <http://www.bigdata.com/rdf/search#>\n' + code;
+    }
+    if (code.includes('gas:') && !code.includes('PREFIX gas: <http://www.bigdata.com/rdf/gas#>')) {
+      code = 'PREFIX gas: <http://www.bigdata.com/rdf/gas#>\n' + code;
+    }
+
+    if (code.includes('wdref:') && !code.includes('PREFIX wdref: <http://www.wikidata.org/reference/>')) {
+      code = 'PREFIX wdref: <http://www.wikidata.org/reference/>\n' + code;
+    }
+    if (code.includes('psv:') && !code.includes('PREFIX psv: <http://www.wikidata.org/prop/statement/value/>')) {
+      code = 'PREFIX psv: <http://www.wikidata.org/prop/statement/value/>\n' + code;
+    }
+    if (code.includes('psn:') && !code.includes('PREFIX psn: <http://www.wikidata.org/prop/statement/value-normalized/>')) {
+      code = 'PREFIX psn: <http://www.wikidata.org/prop/statement/value-normalized/>\n' + code;
+    }
+    if (code.includes('pqv:') && !code.includes('PREFIX pqv: <http://www.wikidata.org/prop/qualifier/value/>')) {
+      code = 'PREFIX pqv: <http://www.wikidata.org/prop/qualifier/value/>\n' + code;
+    }
+    if (code.includes('pqn:') && !code.includes('PREFIX pqn: <http://www.wikidata.org/prop/qualifier/value-normalized/>')) {
+      code = 'PREFIX pqn: <http://www.wikidata.org/prop/qualifier/value-normalized/>\n' + code;
+    }
+    if (code.includes('pr:') && !code.includes('PREFIX pr: <http://www.wikidata.org/prop/reference/>')) {
+      code = 'PREFIX pr: <http://www.wikidata.org/prop/reference/>\n' + code;
+    }
+    if (code.includes('prv:') && !code.includes('PREFIX prv: <http://www.wikidata.org/prop/reference/value/>')) {
+      code = 'PREFIX prv: <http://www.wikidata.org/prop/reference/value/>\n' + code;
+    }
+    if (code.includes('prn:') && !code.includes('PREFIX prn: <http://www.wikidata.org/prop/reference/value-normalized/>')) {
+      code = 'PREFIX prn: <http://www.wikidata.org/prop/reference/value-normalized/>\n' + code;
+    }
+    if (code.includes('wdno:') && !code.includes('PREFIX wdno: <http://www.wikidata.org/prop/novalue/>')) {
+      code = 'PREFIX wdno: <http://www.wikidata.org/prop/novalue/>\n' + code;
+    }
+    if (code.includes('wdata:') && !code.includes('PREFIX wdata: <http://www.wikidata.org/wiki/Special:EntityData/>')) {
+      code = 'PREFIX wdata: <http://www.wikidata.org/wiki/Special:EntityData/>\n' + code;
+    }
+
     this.codeEditor.setValue(code);
   }
 
