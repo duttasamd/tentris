@@ -87,18 +87,85 @@ export class EditorComponent implements OnInit {
     }
 
 
-    function testcommand() {
-      console.log('test command works!');
+    function beautifyHotkey(editor) {
+      // console.log('in beutify shortcut');
+      let code = editor.getValue();
+      code = code.replace(/(?:\r\n|\r|\n)/g, ' <br> ');
+      code = code.replace(/{/g, ' { ');
+      code = code.replace(/}/g, ' } ');
+      const keywords = ['base', 'prefix', 'select', 'distinct', 'reduced', 'construct', 'describe', 'ask',
+        'from', 'named', 'where', 'order', 'limit', 'offset', 'filter', 'optional', 'graph', 'asc',
+        'desc', 'having', 'undef', 'values', 'group', 'minus', 'in', 'not', 'service', 'silent',
+        'using', 'insert', 'delete', 'union', 'true', 'false', 'with', 'data', 'copy', 'to', 'move', 'add',
+        'create', 'drop', 'clear', 'load'];
+      const tokens = code.split(/\s+/);
+      // console.log(tokens);
+      let level = 0;
+      let tabneeded = false;
+      let ignorebr = true;
+      let beautifiedCode = '';
+      for (const token of tokens) {
+
+        if (!ignorebr) {
+          if (token === '<br>') {
+            ignorebr = true;
+            continue;
+          } else {
+            beautifiedCode += ' ' + token;
+            continue;
+          }
+        } else {
+          if (token === '<br>') {
+            continue;
+          }
+        }
+
+        if (token.startsWith('#')) {
+          ignorebr = false;
+          beautifiedCode += '\n' + EditorComponent.addtabs(level, token);
+        } else if (token === '{') {
+          beautifiedCode += '\n' + EditorComponent.addtabs(level, token);
+          tabneeded = true;
+          level += 1;
+        } else if (token === '}') {
+          tabneeded = true;
+          level -= 1;
+          beautifiedCode += '\n' + EditorComponent.addtabs(level, token);
+        } else if (keywords.indexOf(token.toLowerCase()) >= 0) {
+          console.log(token);
+          beautifiedCode += '\n' + EditorComponent.addtabs(level, token);
+          tabneeded = false;
+        } else {
+          if (tabneeded) {
+            beautifiedCode += '\n' + EditorComponent.addtabs(level, token);
+            tabneeded = false;
+          } else {
+            beautifiedCode += ' ' + token;
+          }
+        }
+      }
+      if (beautifiedCode.startsWith('\n')) {
+        beautifiedCode = beautifiedCode.replace('\n', '');
+        // console.log('starts with new line');
+      }
+      editor.setValue(beautifiedCode);
     }
 
     // add command to lazy-load keybinding_menu extension
     this.codeEditor.commands.addCommand({
-      name: 'testcommand',
-      bindKey: {win: 'Ctrl-Alt-h', mac: 'Command-Alt-h'},
+      name: 'beautycommand',
+      bindKey: {win: 'Ctrl-B', mac: 'Command-B'},
       exec(editor) {
-        console.log('This works!');
-        console.log(this);
-        testcommand();
+        beautifyHotkey(editor);
+      }
+    });
+
+    this.codeEditor.commands.addCommand({
+      name: 'clearcommand',
+      bindKey: {win: 'Ctrl-Delete', mac: 'Ctrl-C'},
+      exec(editor) {
+        console.log('In Delete!')
+        editor.setValue('');
       }
     });
     // this.codeEditor.execCommand('testcommand', []);
@@ -135,19 +202,19 @@ export class EditorComponent implements OnInit {
   }
 
   public beautifySparql() {
-    console.log('in beutify');
+    // console.log('in beautify');
     let code = this.codeEditor.getValue();
     code = code.replace(/(?:\r\n|\r|\n)/g, ' <br> ');
     code = code.replace(/{/g, ' { ');
     code = code.replace(/}/g, ' } ');
-    console.log(code);
+    // console.log(code);
     const keywords = ['base', 'prefix', 'select', 'distinct', 'reduced', 'construct', 'describe', 'ask',
       'from', 'named', 'where', 'order', 'limit', 'offset', 'filter', 'optional', 'graph', 'asc',
       'desc', 'having', 'undef', 'values', 'group', 'minus', 'in', 'not', 'service', 'silent',
       'using', 'insert', 'delete', 'union', 'true', 'false', 'with', 'data', 'copy', 'to', 'move', 'add',
       'create', 'drop', 'clear', 'load'];
     const tokens = code.split(/\s+/);
-    console.log(tokens);
+    // console.log(tokens);
     let level = 0;
     let tabneeded = false;
     let ignorebr = true;
@@ -194,7 +261,7 @@ export class EditorComponent implements OnInit {
     }
     if (beautifiedCode.startsWith('\n')) {
       beautifiedCode = beautifiedCode.replace('\n', '');
-      console.log('starts with new line');
+      // console.log('starts with new line');
     }
     this.codeEditor.setValue(beautifiedCode);
   }
