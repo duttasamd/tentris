@@ -1,17 +1,27 @@
+function test() {
+  console.log('test sparql');
+}
+
 ace.define("ace/mode/sparql_highlight_rules",["require","exports","module","ace/lib/oop","ace/mode/text_highlight_rules"], function(require, exports, module) {
   "use strict";
 
   var oop = require("../lib/oop");
   var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
+  var keywords;
+
   var SPARQLHighlightRules = function() {
 
-    var keywords = (
-      "wd|wds|wdv|wdt|wikibase|p|ps|pq|rdfs|bd|PREFIX|wdref|psv|psn|pqv|pqn|pr|prv|prn|wdno|wdata|schema|rdf|owl|skos|xsd|prov|bds|gas|hint|base|prefix|select|distinct|reduced|construct|describe|ask|from|named|where|order|limit|offset|filter|optional|graph|by|asc|desc|as|having|undef|values|group|minus|in|not|service|silent|using|insert|delete|union|true|false|with|data|copy|to|move|add|create|drop|clear|load"
-    );
+    // keywords = (
+    //   "wd|wds|wdv|wdt|wikibase|p|ps|pq|rdfs|bd|PREFIX|wdref|psv|psn|pqv|pqn|pr|prv|prn|wdno|wdata|schema|rdf|owl|skos|xsd|prov|bds|gas|hint|base|prefix|select|distinct|reduced|construct|describe|ask|from|named|where|order|limit|offset|filter|optional|graph|by|asc|desc|as|having|undef|values|group|minus|in|not|service|silent|using|insert|delete|union|true|false|with|data|copy|to|move|add|create|drop|clear|load"
+    // );
+
+    keywords = (
+      "PREFIX|SELECT|FROM|WHERE|GROUP|BY|HAVING|ORDER|LIMIT|OFFSET|VALUES|DISTINCT|CONSTRUCT|ASK|DESCRIBE|OPTIONAL|MINUS|UNION|FILTER|EXISTS|NOT|IN|IF|COALESCE"
+    )
 
     var builtinConstants = (
-      "true|false"
+      "true|false|wd|wds|wdv|wdt|wikibase|p|ps|pq|rdfs|bd|wdref|psv|psn|pqv|pqn|pr|prv|prn|wdno|wdata|schema|rdf|owl|skos|xsd|prov|bds|gas|hint|base"
     );
 
     var builtinFunctions = (

@@ -9,7 +9,10 @@ import 'src/assets/mode_custom_sparql';
 
 import 'ace-builds/src-noconflict/theme-textmate';
 
-import 'ace-builds/src-noconflict/ext-language_tools';
+// import 'ace-builds/src-noconflict/ext-language_tools';
+
+import 'src/assets/custom_ext-language_tools';
+import 'ace-builds/src-noconflict/ext-searchbox';
 
 // import 'ace-builds/src-noconflict/ext-beautify';
 
@@ -51,7 +54,6 @@ export class EditorComponent implements OnInit {
   constructor(private editorService: EditorService) {
   }
 
-
   ngOnInit() {
     ace.require('ace/ext/language_tools');
 
@@ -83,6 +85,23 @@ export class EditorComponent implements OnInit {
         this.historyPick();
       });
     }
+
+
+    function testcommand() {
+      console.log('test command works!');
+    }
+
+    // add command to lazy-load keybinding_menu extension
+    this.codeEditor.commands.addCommand({
+      name: 'testcommand',
+      bindKey: {win: 'Ctrl-Alt-h', mac: 'Command-Alt-h'},
+      exec(editor) {
+        console.log('This works!');
+        console.log(this);
+        testcommand();
+      }
+    });
+    // this.codeEditor.execCommand('testcommand', []);
   }
 
   private historyClick() {
