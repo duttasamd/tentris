@@ -1,0 +1,28 @@
+.viewer {
+  top: 60%;
+  width: 100%;
+  height: 40%;
+  position: absolute;
+}
+
+.menu {
+  position: absolute;
+  top: 5%;
+  width: 10%;
+  height: 55%;
+}
+
+.query {
+  position: absolute;
+  top: 5%;
+  width: 90%;
+  left: 10%;
+  height: 55%;
+}
+
+.tentrisnav {
+  position: absolute;
+  height: 5%;
+  width: 100%;
+}
+
