@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ViewerService } from '../../viewer.service';
 import {EditorService} from '../../editor.service';
-
 @Component({
   selector: 'app-menusidebar',
   templateUrl: './menusidebar.component.html',
@@ -8,7 +8,7 @@ import {EditorService} from '../../editor.service';
 })
 export class MenusidebarComponent implements OnInit {
 
-  constructor(private editorSevice: EditorService) {
+  constructor(private editorSevice: EditorService, private viewerservice : ViewerService) {
   }
 
   ngOnInit() {
@@ -23,7 +23,9 @@ export class MenusidebarComponent implements OnInit {
   }
 
   run() {
+    
     this.editorSevice.onRunQuery();
+    this.viewerservice.onrunclickevent();
     console.log('execute');
   }
 
