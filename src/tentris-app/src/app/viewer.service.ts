@@ -9,17 +9,18 @@ import {EventEmitter} from '@angular/core';
 export class ViewerService {
   invokeresult= new EventEmitter();
   subsVar: Subscription;
+  link:any;
   constructor(private http: HttpClient) { }
-  onrunclickevent()
+  onrunclickevent(code:any)
   {
-    console.log('onclick');
-    this.invokeresult.emit();
+    this.link=code;
+    this.invokeresult.emit(code);
   }
 
   getJSON(){
-    console.log('ongetjson');
-    return this.http.get('https://api.myjson.com/bins/7eoxf'); 
-    
+    var uri = 'http://127.0.0.1:3030/' + encodeURIComponent(this.link);
+    console.log(uri);
+    return this.http.get(uri); 
   }//temporary json placeholder
     
 }

@@ -11,6 +11,7 @@ import 'src/assets/mode_custom_sparql';
 import 'ace-builds/src-noconflict/theme-textmate';
 
 import 'ace-builds/src-noconflict/ext-language_tools';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 // import 'ace-builds/src-noconflict/ext-beautify';
 
@@ -99,6 +100,7 @@ export class EditorComponent implements OnInit {
   }
 
   private runQuery() {
+    var viewercode;
     console.log('in run query');
     const code = this.codeEditor.getValue();
     const history = this.editorService.getData('history');
@@ -110,8 +112,8 @@ export class EditorComponent implements OnInit {
       history.push(code);
       // this.editorService.setData('history', history);
     }
-    console.log(code);
-    this.viewerservice.onrunclickevent();
+    viewercode=code;
+    this.viewerservice.onrunclickevent(viewercode);
     
   }
 
