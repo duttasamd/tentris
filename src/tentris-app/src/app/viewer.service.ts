@@ -9,8 +9,6 @@ import {EventEmitter} from '@angular/core';
 export class ViewerService {
   invokeresult= new EventEmitter();
   subsVar: Subscription;
-
-
   constructor(private http: HttpClient) { }
   onrunclickevent()
   {

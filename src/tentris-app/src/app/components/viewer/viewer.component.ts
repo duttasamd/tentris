@@ -43,7 +43,6 @@ export class ViewerComponent implements OnInit {
     this.data.subsVar = this.data.invokeresult.subscribe(() => {
       this.getjsonresult();
     });
-    
   }
   getjsonresult()
   {

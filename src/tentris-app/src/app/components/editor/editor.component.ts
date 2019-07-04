@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import * as ace from 'ace-builds';
 import {EditorService} from '../../editor.service';
+import { ViewerService } from '../../viewer.service';
 
 // language package, choose your own
 // import 'ace-builds/src-noconflict/mode-sparql';
@@ -48,7 +49,7 @@ export class EditorComponent implements OnInit {
     return tabbedstr + str;
   }
 
-  constructor(private editorService: EditorService) {
+  constructor(private editorService: EditorService,private viewerservice: ViewerService) {
   }
 
 
@@ -75,6 +76,7 @@ export class EditorComponent implements OnInit {
       });
       this.editorService.subsVar = this.editorService.invokeRunQuery.subscribe(() => {
         this.runQuery();
+        
       });
       this.editorService.subsVar = this.editorService.invokeHistory.subscribe(() => {
         this.historyClick();
@@ -85,6 +87,7 @@ export class EditorComponent implements OnInit {
   private historyClick() {
     console.log('in history');
     const history = this.editorService.getData('history');
+
 
     if (history !== undefined && history.length > 0) {
       console.log(history.length);
@@ -99,7 +102,7 @@ export class EditorComponent implements OnInit {
     console.log('in run query');
     const code = this.codeEditor.getValue();
     const history = this.editorService.getData('history');
-    console.log(history);
+    
     if (history === undefined) {
       this.editorService.setData('history', [code]);
     } else {
@@ -107,6 +110,9 @@ export class EditorComponent implements OnInit {
       history.push(code);
       // this.editorService.setData('history', history);
     }
+    console.log(code);
+    this.viewerservice.onrunclickevent();
+    
   }
 
   public beautifySparql() {
