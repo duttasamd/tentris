@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import * as ace from 'ace-builds';
 import {EditorService} from '../../editor.service';
+import { ViewerService } from '../../viewer.service';
 
 // language package, choose your own
 // import 'ace-builds/src-noconflict/mode-sparql';
@@ -13,6 +14,8 @@ import 'ace-builds/src-noconflict/theme-textmate';
 
 import 'src/assets/custom_ext-language_tools';
 import 'ace-builds/src-noconflict/ext-searchbox';
+import 'ace-builds/src-noconflict/ext-language_tools';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 // import 'ace-builds/src-noconflict/ext-beautify';
 
@@ -51,7 +54,7 @@ export class EditorComponent implements OnInit {
     return tabbedstr + str;
   }
 
-  constructor(private editorService: EditorService) {
+  constructor(private editorService: EditorService,private viewerservice: ViewerService) {
   }
 
   ngOnInit() {
@@ -77,6 +80,7 @@ export class EditorComponent implements OnInit {
       });
       this.editorService.subsVar = this.editorService.invokeRunQuery.subscribe(() => {
         this.runQuery();
+        
       });
       this.editorService.subsVar = this.editorService.invokeHistory.subscribe(() => {
         this.historyClick();
@@ -175,6 +179,7 @@ export class EditorComponent implements OnInit {
     console.log('in history');
     const history = this.editorService.getData('history');
 
+
     if (history !== undefined && history.length > 0) {
       console.log(history.length);
       this.codeEditor.setValue(history[history.length - 1]);
@@ -185,13 +190,14 @@ export class EditorComponent implements OnInit {
   }
 
   private runQuery() {
+    var viewercode;
     console.log('in run query');
 
     this.replacePrefix();
 
     const code = this.codeEditor.getValue();
     const history = this.editorService.getData('history');
-    console.log(history);
+    
     if (history === undefined) {
       this.editorService.setData('history', [code]);
     } else {
@@ -199,6 +205,9 @@ export class EditorComponent implements OnInit {
       history.push(code);
       // this.editorService.setData('history', history);
     }
+    viewercode=code;
+    this.viewerservice.onrunclickevent(viewercode);
+    
   }
 
   public beautifySparql() {
