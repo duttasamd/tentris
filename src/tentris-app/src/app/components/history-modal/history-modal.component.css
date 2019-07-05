@@ -1,0 +1,14 @@
+.query {
+  margin: 1%;
+}
+
+.queryText {
+  width: 100%;
+  font-family: 'Source Code Pro', monospace;
+  font-size: small;
+}
+
+
+.modal-dialog {
+  max-width: 1000px;
+}

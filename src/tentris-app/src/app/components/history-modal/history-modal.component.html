@@ -1,0 +1,17 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">History</h4>
+</div>
+<div class="modal-body">
+  <div (click)="pickquery(i)" *ngFor="let history of historyList; index as i" class="form-check">
+    <div class="row query">
+      <div class="col-1">
+        <input class="form-check-input" type="radio" name="exampleRadios" value={{i}}/>
+      </div>
+      <div class="col-11">
+        <textarea disabled rows="8" cols="50"
+                  class="form-check-label form-control queryText">{{ history.toString().trim() }}</textarea>
+      </div>
+    </div>
+  </div>
+  <button (click)="pickquery(-1)" type="submit" class="btn btn-primary w-100">Select</button>
+</div>

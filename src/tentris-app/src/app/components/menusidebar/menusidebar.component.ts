@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {HistoryModalComponent} from '../history-modal/history-modal.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {EditorService} from '../../editor.service';
 
 @Component({
@@ -8,7 +10,7 @@ import {EditorService} from '../../editor.service';
 })
 export class MenusidebarComponent implements OnInit {
 
-  constructor(private editorSevice: EditorService) {
+  constructor(private editorSevice: EditorService, private modalService: NgbModal) {
   }
 
   ngOnInit() {
@@ -29,6 +31,11 @@ export class MenusidebarComponent implements OnInit {
 
   getHistory() {
     this.editorSevice.onHistoryClick();
+  }
+
+  openHistoryModal() {
+    this.modalService.open(HistoryModalComponent, {windowClass: 'historyModal', size: 'lg'});
+    // modalRef.componentInstance.user = this.user;
   }
 
 }
