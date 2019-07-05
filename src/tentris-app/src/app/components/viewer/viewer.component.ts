@@ -40,6 +40,12 @@ export class ViewerComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.data.subsVar = this.data.invokeresult.subscribe(() => {
+      this.getjsonresult();
+    });
+  }
+  getjsonresult()
+  {
     var JSONdata: DataResponse;
     this.data.getJSON().subscribe(data =>{
       JSONdata=<DataResponse>data; //JSON data stored as defined by the interface
