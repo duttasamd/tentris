@@ -43,18 +43,15 @@
         <td mat-cell *matCellDef="let element">
           <span *ngIf="element[column]?.type=='uri'; else elseBlock1">
             <span class="badge" *ngIf="badgeFlag==true">U</span>
-            <a href="{{ element[column]?.value }}" target="_blank">{{ element[column]?.value }}</a></span>
+            <a href="{{ element[column]?.value }}" target="_blank">{{ element[column]?.value }}</a>
+          </span>
           <ng-template #elseBlock1>
-            <span *ngIf="element[column]?.type=='bnode'; else elseBlock2"><span class="badge"
-                *ngIf="badgeFlag==true">B</span>{{ element[column]?.value }}</span>
-            <ng-template #elseBlock2>
-              <span *ngIf="element[column]?.datatype !=null && element[column]?.type=='literal'; else elseBlock3">
-                <span class="badge" *ngIf="badgeFlag==true">L</span><span
-                  [innerHTML]="element[column]?.value"></span></span>
-              <ng-template #elseBlock3>
-                <span class="badge" *ngIf="badgeFlag==true">L</span>{{ element[column]?.value }}
-              </ng-template>
-            </ng-template>
+            <span *ngIf="element[column]?.type=='literal';else elseBlock2">
+              <span class="badge" *ngIf="badgeFlag==true">L</span>{{ element[column]?.value }}</span>
+          </ng-template>
+          <ng-template #elseBlock2>
+              <span *ngIf="element[column]?.type=='bnode'"><span class="badge"
+                  *ngIf="badgeFlag==true">B</span>{{ element[column]?.value }}</span>
           </ng-template>
         </td>
       </ng-container>
