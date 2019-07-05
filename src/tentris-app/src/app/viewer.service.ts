@@ -18,7 +18,7 @@ export class ViewerService {
   }
 
   getJSON(){
-    var uri = 'http://127.0.0.1:3030/' + encodeURIComponent(this.link);
+    var uri = 'http://127.0.0.1:3030/sparql?query=' + encodeURIComponent(this.link);
     console.log(uri);
     return this.http.get(uri); 
   }//temporary json placeholder
