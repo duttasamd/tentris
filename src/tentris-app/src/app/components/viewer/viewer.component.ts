@@ -39,18 +39,23 @@ export class ViewerComponent implements OnInit {
     this.clearFilter();
   }
 
+  /*
+  Subscribing an event to call getjsonresult() anytime the event is triggered 
+  */
   ngOnInit() {
     this.data.subsVar = this.data.invokeresult.subscribe(() => {
       this.getjsonresult();
     });
   }
+  /*
+  Meathod to fetch the result of the query being run and store it in JSON variable
+  further assigning this value in variables to display them in table format in the viewer
+  */
   getjsonresult()
   {
     var JSONdata: DataResponse;
     this.data.getJSON().subscribe(data =>{
       JSONdata=<DataResponse>data; //JSON data stored as defined by the interface
-      console.log(JSONdata.head); //JSON header can be accessed like this and can be seen in console
-      console.log(JSONdata.results); //JSON result can be accessed like this and can be seen in console
       this.ELEMENT_DATA = JSONdata.results['bindings'];
       this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
       this.displayedColumns = JSONdata.head['vars'];

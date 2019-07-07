@@ -190,7 +190,7 @@ export class EditorComponent implements OnInit {
   }
 
   private runQuery() {
-    var viewercode;
+    var viewercode;                                         
     console.log('in run query');
 
     this.replacePrefix();
@@ -206,8 +206,8 @@ export class EditorComponent implements OnInit {
       // this.editorService.setData('history', history);
     }
     viewercode=code;
-    this.viewerservice.onrunclickevent(viewercode);
-    
+    this.viewerservice.onrunclickevent(viewercode);     //calling the viewer meathod to request the result of query, argument holds the value of code held in the editor at the time run button is pressed.
+                                                      
   }
 
   public beautifySparql() {
