@@ -32,7 +32,9 @@ export class ViewerComponent implements OnInit {
   sortingDataAccessor(item, property) {
     return item[property].value;
   }
-
+  /*
+  * This method is to toggle between Table level filter and Column level filter in the viewer
+  */
   toggle() {
     this.disableVal = !this.disableVal;
     this.disableVal2 = !this.disableVal2;
@@ -55,6 +57,10 @@ export class ViewerComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
       this.displayedColumns = JSONdata.head['vars'];
       this.pgSizeOptions = [5, 10, 50, 100, 500]; //Re-initialized to handle a case
+      /*
+      * This condition checks if the returned output has more rows than 500 or not. If it has, then
+      * it adds that to the page size options 'list'. The last child of the list is displayed as 'All'
+      */
       if (this.ELEMENT_DATA.length > 500) {
         this.pgSizeOptions.push(this.ELEMENT_DATA.length);
       }
@@ -67,6 +73,10 @@ export class ViewerComponent implements OnInit {
       this.dataSource.sort = this.sort;      
     });
   }
+  /*
+  * This method generates a CSV file from the output of the query when it is 
+  * requested to be downloaded
+  */
   csv() {
     let content = []; let headers = [];
     for (const header of this.displayedColumns) {
@@ -89,6 +99,11 @@ export class ViewerComponent implements OnInit {
     a.click();
     document.body.removeChild(a);
   }
+  /*
+  * This method generates a JSON file from the output of the query when it is 
+  * requested to be downloaded. The JSON file can be in a formatted or unformatted state,
+  * depending on the type of request
+  */
   json(formattedFlag: number) {
     let data, partFileName;
     if (formattedFlag == 1) {
@@ -109,6 +124,10 @@ export class ViewerComponent implements OnInit {
     a.click();
     document.body.removeChild(a);
   }
+  /*
+  * This method generates an HTML file from the output of the query when it is 
+  * requested to be downloaded. The HTML file contains the result in a tabular form.
+  */
   html() {
     let ht = "", td = "", tr = "";
     let template = "<html><style type=\"text/css\">.tg  {border-collapse:collapse;border-spacing:0;text-align:left;vertical-align:top}.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black; background-color:aliceblue;}</style><body><table class=\"tg\"><tr>";
@@ -135,12 +154,20 @@ export class ViewerComponent implements OnInit {
     a.click();
     document.body.removeChild(a);
   }
+  /*
+  * This method clears the existing input from the filter when the filter type is changed
+  * using the toggle button.
+  */
   clearFilter() {
     this.dataSource.filter = "";
     if (this.mainFilterValue != "") {
       this.mainFilterValue = "";
     }
   }
+  /*
+  * This method takes the input from the table level filter and returns the matched rows from the 
+  * whole output dataset.
+  */
   mainFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
     this.dataSource.filterPredicate = (data, filter) => {
@@ -154,6 +181,10 @@ export class ViewerComponent implements OnInit {
       return dataStr.indexOf(filter) != -1;
     }
   }
+  /*
+  * This method takes the input from the column level filter and returns the rows which are  
+  * matched in that specific column
+  */
   colFilter(filterValue: string, placeHolder: string) {
     //console.log("Event");
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -166,11 +197,20 @@ export class ViewerComponent implements OnInit {
       return dataStr.indexOf(filter) != -1;
     }
   }
+  /*
+  * This method returns the JSON output only when the user clicks on the 'JSON' tab in the viewer.
+  * The click event is captured by the parameter of the method. The JSON tab has an index of '1' 
+  * in the set of tabs which is what we are checking here.
+  */
   onJsonRequest(indx: MatTabChangeEvent) {
     if (indx.toString() == "1") {
       this.beautified = this.ELEMENT_DATA;
     }
   }
+  /*
+  * This method is used to toggle between showing and not showing the badges in a cell. 
+  * These badges represent the 'type' of the data.
+  */
   toggleBadge() {
     this.badgeFlag = !this.badgeFlag;
   }
