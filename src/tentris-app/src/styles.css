@@ -10,3 +10,14 @@
 .mat-elevation-z8 a:link, .mat-elevation-z8 a:visited {
     color:#428bca;
 }
+mat-option:last-child:before{
+  content: 'All';
+  float: left;
+  text-transform: none;
+  top: 4px;
+  position: relative;
+}
+mat-option:last-child .mat-option-text{
+display: none;
+position: relative;
+}

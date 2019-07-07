@@ -22,7 +22,7 @@ export class ViewerComponent implements OnInit {
   disableVal2 = true;
   mainFilterValue = "";
   badgeFlag = false;
-  pgSizeOptions = [5, 10, 20, 30, 50, 100, 500];
+  pgSizeOptions: number[] = [5, 10, 50, 100, 500];
 
   constructor( private data: ViewerService ) {}
 
@@ -54,9 +54,14 @@ export class ViewerComponent implements OnInit {
       this.ELEMENT_DATA = JSONdata.results['bindings'];
       this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
       this.displayedColumns = JSONdata.head['vars'];
-      if (this.ELEMENT_DATA.length > 50) {
+      this.pgSizeOptions = [5, 10, 50, 100, 500]; //Re-initialized to handle a case
+      if (this.ELEMENT_DATA.length > 500) {
         this.pgSizeOptions.push(this.ELEMENT_DATA.length);
       }
+      else {
+        this.pgSizeOptions.push(500);
+      }
+      this.paginator.pageSizeOptions = this.pgSizeOptions;
       this.dataSource.paginator = this.paginator;
       this.dataSource.sortingDataAccessor = this.sortingDataAccessor;
       this.dataSource.sort = this.sort;      
