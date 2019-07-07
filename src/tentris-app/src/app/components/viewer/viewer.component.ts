@@ -23,6 +23,7 @@ export class ViewerComponent implements OnInit {
   mainFilterValue = "";
   badgeFlag = false;
   pgSizeOptions: number[] = [5, 10, 50, 100, 500];
+  spinnerFlag = false;
 
   constructor( private data: ViewerService ) {}
 
@@ -50,6 +51,7 @@ export class ViewerComponent implements OnInit {
   {
     var JSONdata: DataResponse;
     this.data.getJSON().subscribe(data =>{
+      this.spinnerFlag = true;
       JSONdata=<DataResponse>data; //JSON data stored as defined by the interface
       console.log(JSONdata.head); //JSON header can be accessed like this and can be seen in console
       console.log(JSONdata.results); //JSON result can be accessed like this and can be seen in console
@@ -70,7 +72,8 @@ export class ViewerComponent implements OnInit {
       this.paginator.pageSizeOptions = this.pgSizeOptions;
       this.dataSource.paginator = this.paginator;
       this.dataSource.sortingDataAccessor = this.sortingDataAccessor;
-      this.dataSource.sort = this.sort;      
+      this.dataSource.sort = this.sort;
+      this.spinnerFlag = false;
     });
   }
   /*
